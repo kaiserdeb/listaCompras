@@ -3,10 +3,8 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   Button,
-  FlatList,
-  TouchableOpacity,
+  FlatList
 } from "react-native";
 import { ListItem, AddToBuy, CustomModal } from "../components";
 import { colors } from "../constants/colors";
@@ -119,9 +117,6 @@ export const Home = ({
 
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Lista</Text>
-      </View>
       <AddToBuy
         item={toBuy}
         onChangeText={onHandleChangeText}

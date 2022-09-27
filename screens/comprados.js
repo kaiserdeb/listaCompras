@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
-  Text,
   View,
-  TextInput,
-  Button,
   FlatList,
-  TouchableOpacity,
 } from "react-native";
 import { ListItem } from "../components";
 import { colors } from "../constants/colors";
@@ -14,9 +10,6 @@ import { colors } from "../constants/colors";
 export const Comprados = ({ shoppingList }) => {
   return (
     <View style={styles.container}>
-        <View style={styles.titleContainer}>
-            <Text style={styles.title}>Comprados</Text>
-        </View>
       <FlatList
         style={styles.itemList}
         data={shoppingList.filter((item) => item.buyed)}

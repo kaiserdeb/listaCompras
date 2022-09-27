@@ -5,6 +5,10 @@ import { Header } from "./components";
 import { Home } from "./screens/home";
 import { Comprados } from "./screens/comprados";
 import { colors } from "./constants/colors";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [principalVisible, setPrincipalVisible] = useState(true);
@@ -63,8 +67,25 @@ export default function App() {
   );
   return (
     <>
-      <Header onChangePrincipalView={onChangePrincipalView} />
-      {viewShow}
+      <NavigationContainer >
+      <Header/>
+      <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen name="Home">
+              {() => 
+                  <Home
+                  shoppingList={shoppingList}
+                  onAddItem={onAddItem}
+                  onDeleteItem={onDeleteItem}
+                  onUpdateItem={onUpdateItem}
+                />
+              }
+            </Stack.Screen> 
+            <Stack.Screen name="Comprados">
+              {() => <Comprados shoppingList={shoppingList} />}
+            </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+      {/* {viewShow} */}
     </>
   );
 }

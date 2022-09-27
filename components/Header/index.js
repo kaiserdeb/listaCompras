@@ -8,17 +8,20 @@ import {
   Platform,
 } from "react-native";
 import { colors } from "../../constants/colors";
+import { useNavigation } from '@react-navigation/native';
 
-export const Header = ({ onChangePrincipalView }) => {
+export const Header = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.header}>
       <View style={styles.menuItem}>
-        <TouchableOpacity onPress={() => onChangePrincipalView(true)}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Text style={styles.menuItemText}>Lista</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.menuItem}>
-        <TouchableOpacity onPress={() => onChangePrincipalView(false)}>
+        <TouchableOpacity onPress={() => navigation.navigate('Comprados')}>
           <Text style={styles.menuItemText}>Comprado</Text>
         </TouchableOpacity>
       </View>
