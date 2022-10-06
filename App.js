@@ -7,6 +7,7 @@ import { Comprados } from "./screens/comprados";
 import { colors } from "./constants/colors";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { AppNavigator } from "./navigation";
 
 const Stack = createNativeStackNavigator();
 
@@ -55,19 +56,19 @@ export default function App() {
   }
 
 
-  let viewShow = principalVisible ? (
-    <Home
-      shoppingList={shoppingList}
-      onAddItem={onAddItem}
-      onDeleteItem={onDeleteItem}
-      onUpdateItem={onUpdateItem}
-    />
-  ) : (
-    <Comprados shoppingList={shoppingList} />
-  );
+  // let viewShow = principalVisible ? (
+  //   <Home
+  //     shoppingList={shoppingList}
+  //     onAddItem={onAddItem}
+  //     onDeleteItem={onDeleteItem}
+  //     onUpdateItem={onUpdateItem}
+  //   />
+  // ) : (
+  //   <Comprados shoppingList={shoppingList} />
+  // );
   return (
     <>
-      <NavigationContainer >
+      {/* <NavigationContainer >
       <Header/>
       <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home">
@@ -84,8 +85,13 @@ export default function App() {
               {() => <Comprados shoppingList={shoppingList} />}
             </Stack.Screen>
         </Stack.Navigator>
-      </NavigationContainer>
-      {/* {viewShow} */}
+      </NavigationContainer> */}
+      <AppNavigator                   
+        shoppingList={shoppingList}
+        onAddItem={onAddItem}
+        onDeleteItem={onDeleteItem}
+        onUpdateItem={onUpdateItem}
+      />
     </>
   );
 }
