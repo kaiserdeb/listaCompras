@@ -5,7 +5,7 @@ import { Comprados } from "../screens/comprados";
 
 const Stack = createNativeStackNavigator();
 
-export const CompradosNavigator = ({shoppingList}) => {
+export const CompradosNavigator = () => {
     return(
         <Stack.Navigator 
             initialRouteName="Comprados"
@@ -19,9 +19,7 @@ export const CompradosNavigator = ({shoppingList}) => {
                 },
             }}
         >
-            <Stack.Screen name="Comprados">
-              {() => <Comprados shoppingList={shoppingList} />}
-            </Stack.Screen>
+            <Stack.Screen name="Comprados" component={Comprados} />
         </Stack.Navigator>
     )
 }

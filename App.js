@@ -8,6 +8,8 @@ import { colors } from "./constants/colors";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AppNavigator } from "./navigation";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,29 +25,6 @@ export default function App() {
     "Rubik-Black": require("./assets/fonts/Rubik-Black.ttf"),
   });
 
-  const onChangePrincipalView = (value) => {
-    setPrincipalVisible(value);
-  };
-
-  const onAddItem = (item) => {
-    setShoppingList((prevShoppingList) => [...prevShoppingList, item]);
-  };
-
-  const onDeleteItem = (id) => {
-    setShoppingList(shoppingList.filter((item) => item.id !== id));
-  };
-
-  const onUpdateItem = (id) => {
-    let prevItem = {
-      ...shoppingList.find((item) => item.id === id),
-      color: "#cbeaa6",
-      buyed: true,
-    };
-    setShoppingList([
-      ...shoppingList.filter((item) => item.id !== id),
-      prevItem,
-    ]);
-  };
 
   if(!loaded) {
     return (
@@ -55,43 +34,11 @@ export default function App() {
     )
   }
 
-
-  // let viewShow = principalVisible ? (
-  //   <Home
-  //     shoppingList={shoppingList}
-  //     onAddItem={onAddItem}
-  //     onDeleteItem={onDeleteItem}
-  //     onUpdateItem={onUpdateItem}
-  //   />
-  // ) : (
-  //   <Comprados shoppingList={shoppingList} />
-  // );
   return (
     <>
-      {/* <NavigationContainer >
-      <Header/>
-      <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home">
-              {() => 
-                  <Home
-                  shoppingList={shoppingList}
-                  onAddItem={onAddItem}
-                  onDeleteItem={onDeleteItem}
-                  onUpdateItem={onUpdateItem}
-                />
-              }
-            </Stack.Screen> 
-            <Stack.Screen name="Comprados">
-              {() => <Comprados shoppingList={shoppingList} />}
-            </Stack.Screen>
-        </Stack.Navigator>
-      </NavigationContainer> */}
-      <AppNavigator                   
-        shoppingList={shoppingList}
-        onAddItem={onAddItem}
-        onDeleteItem={onDeleteItem}
-        onUpdateItem={onUpdateItem}
-      />
+      <Provider store={store}>
+        <AppNavigator />
+      </Provider>
     </>
   );
 }

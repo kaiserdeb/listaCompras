@@ -8,7 +8,7 @@ import { CompradosNavigator } from "./comprados";
 
 const BottomTab = createBottomTabNavigator();
 
-export const AppNavigator = ({ shoppingList,onAddItem,onDeleteItem,onUpdateItem }) => {
+export const AppNavigator = ({ onUpdateItem }) => {
     return (
         <NavigationContainer>
             <BottomTab.Navigator
@@ -32,9 +32,6 @@ export const AppNavigator = ({ shoppingList,onAddItem,onDeleteItem,onUpdateItem 
                 >
                     {() => 
                         <HomeNavigator 
-                            shoppingList={shoppingList}
-                            onAddItem={onAddItem}
-                            onDeleteItem={onDeleteItem}
                             onUpdateItem={onUpdateItem}
                         />
                     }
@@ -52,7 +49,7 @@ export const AppNavigator = ({ shoppingList,onAddItem,onDeleteItem,onUpdateItem 
                         )
                     }}
                 >
-                    {() => <CompradosNavigator shoppingList={shoppingList} />}
+                    {() => <CompradosNavigator />}
                 </BottomTab.Screen>
             </BottomTab.Navigator>
         </NavigationContainer>

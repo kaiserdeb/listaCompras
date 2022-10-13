@@ -8,17 +8,31 @@ import {
 } from "react-native";
 import { ListItem, AddToBuy, CustomModal } from "../components";
 import { colors } from "../constants/colors";
+import { useSelector, useDispatch } from "react-redux";
+import { addComprar, deleteComprar, addCompra } from "../store/actions";
 
-export const Home = ({
-  shoppingList,
-  onAddItem,
-  onDeleteItem,
-  onUpdateItem,
-}) => {
+export const Home = ({navigation}) => {
   const [toBuy, setToBuy] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedToDelete, setSelectedToDelete] = useState(null);
   const [selectedToConfirm, setSelectedToConfirm] = useState(null);
+
+  const dispatch = useDispatch();
+  const aComprar = useSelector((state) => state.aComprar.aComprar);
+
+  const onDelete = (id) => {
+    dispatch(deleteComprar(id))
+  }
+
+  const onAdd = (comprar) => {
+      dispatch(addComprar(comprar));
+  }
+
+  const onUpdate = (comprar) => {
+    let temp = {...comprar, color: "#cbeaa6", buyed: true }
+      dispatch(addCompra(temp));
+      onDelete(comprar.id);
+  }
 
   const onHandleChangeText = (text) => {
     setToBuy(text);
@@ -26,22 +40,22 @@ export const Home = ({
 
   const onHandleDelete = (id) => {
     setModalVisible(!modalVisible);
-    setSelectedToDelete(shoppingList.find((item) => item.id === id));
+    setSelectedToDelete(aComprar.find((item) => item.id === id));
   };
 
   const onHandleConfirm = (id) => {
     setModalVisible(!modalVisible);
-    setSelectedToConfirm(shoppingList.find((item) => item.id === id));
+    setSelectedToConfirm(aComprar.find((item) => item.id === id));
   };
 
   const deleteItem = (id) => {
-    onDeleteItem(id);
+    onDelete(id);
     setSelectedToDelete(null);
     setModalVisible(!modalVisible);
   };
 
-  const confirmItem = (id) => {
-    onUpdateItem(id);
+  const confirmItem = (item) => {
+    onUpdate(item);
     setSelectedToConfirm(null);
     setModalVisible(!modalVisible);
   };
@@ -54,7 +68,7 @@ export const Home = ({
 
   const addItem = () => {
     if (toBuy != "")
-        onAddItem({ id: Date.now(), value: toBuy, color: "#f9c784", buyed: false });
+      onAdd({ id: Date.now(), value: toBuy, color: "#f9c784", buyed: false });
     
     setToBuy("");
   };
@@ -108,7 +122,7 @@ export const Home = ({
         />
         <Button
           title="Confirmar"
-          onPress={() => confirmItem(selectedToConfirm?.id)}
+          onPress={() => confirmItem(selectedToConfirm)}
           color="#69995d"
         />
       </View>
@@ -129,7 +143,7 @@ export const Home = ({
       />
       <FlatList
         style={styles.itemList}
-        data={shoppingList.filter((item) => !item.buyed)}
+        data={aComprar}
         renderItem={({ item }) => (
           <ListItem
             item={item}

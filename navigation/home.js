@@ -5,7 +5,7 @@ import { Home } from "../screens/home";
 
 const Stack = createNativeStackNavigator();
 
-export const HomeNavigator = ( {shoppingList,onAddItem,onDeleteItem,onUpdateItem} ) => {
+export const HomeNavigator = () => {
     return(
         <Stack.Navigator 
             initialRouteName="Lista de compras"
@@ -19,16 +19,7 @@ export const HomeNavigator = ( {shoppingList,onAddItem,onDeleteItem,onUpdateItem
                 },
             }}
         >
-            <Stack.Screen name="Lista de compras">
-              {() => 
-                  <Home
-                  shoppingList={shoppingList}
-                  onAddItem={onAddItem}
-                  onDeleteItem={onDeleteItem}
-                  onUpdateItem={onUpdateItem}
-                />
-              }
-            </Stack.Screen> 
+            <Stack.Screen name="Lista de compras" component={Home} />
         </Stack.Navigator>
     )
 }

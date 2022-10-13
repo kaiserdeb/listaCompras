@@ -6,13 +6,15 @@ import {
 } from "react-native";
 import { ListItem } from "../components";
 import { colors } from "../constants/colors";
+import { useSelector } from "react-redux";
 
-export const Comprados = ({ shoppingList }) => {
+export const Comprados = () => {
+  const compras = useSelector((state) => state.compras.compras);
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.itemList}
-        data={shoppingList.filter((item) => item.buyed)}
+        data={compras}
         renderItem={({ item }) => <ListItem item={item} />}
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
